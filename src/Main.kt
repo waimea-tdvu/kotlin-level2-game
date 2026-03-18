@@ -19,7 +19,7 @@ val board= mutableListOf<String>()
 fun main() {
     println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓".cyan())
       print("┃".cyan())
-    println(" Welcome to Chain Reaction Game")print("┃".cyan())
+    println(" Welcome to Chain Reaction Game")
 
 //    println(" Produce by Trinh Vu           ")
 //    print("┃".cyan())
