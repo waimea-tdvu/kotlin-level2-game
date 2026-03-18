@@ -2,8 +2,8 @@
  * =====================================================================
  * Programming Project for NCEA Level 2, Standard 91896
  * ---------------------------------------------------------------------
- * Project Name:   PROJECT NAME HERE
- * Project Author: PROJECT AUTHOR HERE
+ * Project Name:   CHAIN REACTION
+ * Project Author: TRINH VU
  * GitHub Repo:    GITHUB REPO URL HERE
  * ---------------------------------------------------------------------
  * Notes:
@@ -12,8 +12,25 @@
  */
 
 
+val board= mutableListOf<String>()
+
+
 
 fun main() {
-    println("Hello World!")
+    println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓".cyan())
+      print("┃".cyan())
+    println(" Welcome to Chain Reaction Game")print("┃".cyan())
+
+//    println(" Produce by Trinh Vu           ")
+//    print("┃".cyan())
+//    println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛".cyan())
+    println()
+
+    createBoard()
+}
+fun createBoard() {
+    repeat(12) {
+    board.add("SPACE")
+   }
 }
 
