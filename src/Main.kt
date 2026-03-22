@@ -17,17 +17,24 @@ val board= mutableListOf<String>()
 
 
 fun main() {
-    println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓".cyan())
-      print("┃".cyan())
-    println(" Welcome to Chain Reaction Game")
+        println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓".cyan())
+        print("┃".cyan())
 
-//    println(" Produce by Trinh Vu           ")
-//    print("┃".cyan())
-//    println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛".cyan())
-    println()
+        print(" Welcome to Chain Reaction Game")
+        println(" ┃".cyan())
+        print("┃".cyan())
+        print(" Produce by Trinh Vu ")
+        println("           ┃".cyan())
 
-    createBoard()
-}
+        println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛".cyan())
+        println()
+
+        createBoard()
+    }
+
+
+
+
 fun createBoard() {
     repeat(12) {
     board.add("SPACE")
