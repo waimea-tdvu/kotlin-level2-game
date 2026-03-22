@@ -12,7 +12,7 @@
  */
 
 
-val board= mutableListOf<String>()
+val boards= mutableListOf<String>()
 
 
 
@@ -30,6 +30,7 @@ fun main() {
         println()
 
         createBoard()
+        showBoard()
     }
 
 
@@ -37,7 +38,33 @@ fun main() {
 
 fun createBoard() {
     repeat(12) {
-    board.add("SPACE")
+           boards.add("SPACE")
    }
 }
+
+fun showBoard(){
+    for (i in 1..boards.size) {
+        print("    $i    ")
+    }
+    println()
+    // Top border
+    println("┏━━━━━━━━" + "┳━━━━━━━━".repeat(boards.size - 1) + "┓")
+
+
+    // Cell contents
+
+    for (board in boards) {
+        print("┃")
+        print(" ${board.padEnd(6)} ")
+
+    }
+    println("┃")
+
+    // Bottom border
+
+    println("┗━━━━━━━━" + "┻━━━━━━━━".repeat(boards.size - 1) + "┛")
+}
+
+fun
+
 
