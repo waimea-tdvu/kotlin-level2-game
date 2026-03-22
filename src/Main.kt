@@ -62,21 +62,21 @@ fun showBoard(){
     }
     println()
     // Top border
-    println("┏━━━━━━━━".red() + "┳━━━━━━━━".repeat(boards.size - 1).red() + "┓".red())
+    println("┏━━━━━━━━".green() + "┳━━━━━━━━".repeat(boards.size - 1).green() + "┓".green())
 
 
     // Board  contents
 
     for (board in boards) {
-        print("┃".red())
+        print("┃".green())
         print(" ${board.padEnd(6)} ")
 
     }
-    println("┃".red())
+    println("┃".green())
 
     // Bottom border
 
-    println("┗━━━━━━━━".red() + "┻━━━━━━━━".repeat(boards.size - 1).red() + "┛".red())
+    println("┗━━━━━━━━".green() + "┻━━━━━━━━".repeat(boards.size - 1).green() + "┛".green())
 }
 
 fun boardSelection(){
