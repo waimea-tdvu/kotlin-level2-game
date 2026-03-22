@@ -29,10 +29,23 @@ fun main() {
         println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛".cyan())
         println()
 
+        getPlayerName()
         createBoard()
         showBoard()
-    }
+        boardSelection()
 
+
+    }
+fun getPlayerName(){
+    // Get username
+    print(" Player 1, enter your name here : ")
+    val name1 = readln()
+    println("Player 1: $name1 ")
+    print(" Player 2, enter your name here : ")
+    val name2 = readln()
+    println("Player 2: $name2 ")
+
+}
 
 
 
@@ -42,29 +55,35 @@ fun createBoard() {
    }
 }
 
+
 fun showBoard(){
     for (i in 1..boards.size) {
         print("    $i    ")
     }
     println()
     // Top border
-    println("┏━━━━━━━━" + "┳━━━━━━━━".repeat(boards.size - 1) + "┓")
+    println("┏━━━━━━━━".red() + "┳━━━━━━━━".repeat(boards.size - 1).red() + "┓".red())
 
 
-    // Cell contents
+    // Board  contents
 
     for (board in boards) {
-        print("┃")
+        print("┃".red())
         print(" ${board.padEnd(6)} ")
 
     }
-    println("┃")
+    println("┃".red())
 
     // Bottom border
 
-    println("┗━━━━━━━━" + "┻━━━━━━━━".repeat(boards.size - 1) + "┛")
+    println("┗━━━━━━━━".red() + "┻━━━━━━━━".repeat(boards.size - 1).red() + "┛".red())
 }
 
-fun
+fun boardSelection(){
+    
+}
+
+
+
 
 
