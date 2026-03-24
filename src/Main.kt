@@ -14,8 +14,6 @@
 
 val boards= mutableListOf<String>()
 
-
-
 fun main() {
         println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓".cyan())
         print("┃".cyan())
@@ -32,29 +30,77 @@ fun main() {
         getPlayerName()
         createBoard()
         showBoard()
-        boardSelection()
+        getUserSelection()
 
 
     }
+// Symbol P1 ♔♕⚐♡♢♤♧
+// Symbol P2 ♚♛⚑♥♦♠♣
 fun getPlayerName(){
     // Get username
+
     print(" Player 1, enter your name here : ")
     val name1 = readln()
-    println("Player 1: $name1 ")
+
+        println("1.♔")
+        println("2.♕")
+        println("3.⚐")
+        println("4.♡")
+        println("5.♢")
+        println("6.♤")
+        println("7.♧")
+        println("Choose your symbol to play: ")
+
+    var symbol1 = readln()
+        when {
+            symbol1 == "1"-> symbol1 = "♔"
+            symbol1 == "2"-> symbol1 = "♕"
+            symbol1 == "3"-> symbol1 = "⚐"
+            symbol1 == "4"-> symbol1 = "♡"
+            symbol1 == "5"-> symbol1 = "♢"
+            symbol1 == "6"-> symbol1 = "♤"
+            symbol1 == "7"-> symbol1 = "♧ "
+
+        }
+    println("Player 1: $name1 $symbol1 ")
+
+
+
+
     print(" Player 2, enter your name here : ")
     val name2 = readln()
-    println("Player 2: $name2 ")
+
+    println("1.♚")
+    println("2.♛")
+    println("3.⚑")
+    println("4.♥")
+    println("5.♦")
+    println("6.♠")
+    println("7.♣")
+    println("Choose your symbol to play: ")
+
+    var symbol2 = readln()
+    when {
+        symbol2 == "1"-> symbol2 = "♚"
+        symbol2 == "2"-> symbol2 = "♛"
+        symbol2 == "3"-> symbol2 = "⚑"
+        symbol2 == "4"-> symbol2 = "♥"
+        symbol2 == "5"-> symbol2 = "♦"
+        symbol2 == "6"-> symbol2 = "♠"
+        symbol2 == "7"-> symbol2 = "♣"
+    }
+
+
+
+    println("Player 2: $name2 $symbol2")
 
 }
-
-
 
 fun createBoard() {
     repeat(12) {
            boards.add("SPACE")
    }
 }
-
 
 fun showBoard(){
     for (i in 1..boards.size) {
@@ -63,7 +109,6 @@ fun showBoard(){
     println()
     // Top border
     println("┏━━━━━━━━".green() + "┳━━━━━━━━".repeat(boards.size - 1).green() + "┓".green())
-
 
     // Board  contents
 
@@ -79,8 +124,8 @@ fun showBoard(){
     println("┗━━━━━━━━".green() + "┻━━━━━━━━".repeat(boards.size - 1).green() + "┛".green())
 }
 
-fun boardSelection(){
-    
+fun getUserSelection(){
+
 }
 
 
