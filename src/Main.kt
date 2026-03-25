@@ -30,18 +30,19 @@ fun main() {
         getPlayerName()
         createBoard()
         showBoard()
-        getUserSelection()
+        getUser1Movement()
 
 
     }
+    var player1Symbol = ""
+    var player2Symbol = ""
 // Symbol P1 ♔♕⚐♡♢♤♧
 // Symbol P2 ♚♛⚑♥♦♠♣
 fun getPlayerName(){
     // Get username
 
-    print(" Enter player name here : ")
+    print(" Enter player 1 name here : ")
     val name1 = readln()
-
         println("1.♔")
         println("2.♕")
         println("3.⚐")
@@ -63,7 +64,7 @@ fun getPlayerName(){
 
         }
     println("Player 1: $name1 $symbol1 ")
-
+    player1Symbol = symbol1
 
     print(" Enter player 2 name here : ")
     val name2 = readln()
@@ -89,12 +90,12 @@ fun getPlayerName(){
     }
 
     println("Player 2: $name2 $symbol2")
-
+    player2Symbol = symbol2
 }
 
 fun createBoard() {
     repeat(12) {
-           boards.add("SPACE")
+           boards.add("SPACE ")
    }
 }
 
@@ -120,26 +121,22 @@ fun showBoard(){
     println("┗━━━━━━━━".green() + "┻━━━━━━━━".repeat(boards.size - 1).green() + "┛".green())
 }
 
-fun getUserSelection() {
+fun getUser1Movement() {
     var movement: String
     while (true) {
-        print("Choose number player 1 move:  ")
+        print("Choose number player 1 move: ")
         movement = readln()
         if (movement.isNotBlank()) break
+
     }
-    var movementAdded = false
-    for (i in 0..<boards.size) {
-        if (boards[i] == "SPACE") {
-            boards[i] = movement
-            movementAdded = true
-            break
-        }
+        var movementAdded = player1Symbol
+        
     }
 
-    if (!movementAdded) {
-        println("INVALID MOVE")
-    }
-}
+
+
+
+
 
 
 
