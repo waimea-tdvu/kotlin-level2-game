@@ -39,10 +39,12 @@ fun main() {
 // Symbol P1 ♔♕⚐♡♢♤♧
 // Symbol P2 ♚♛⚑♥♦♠♣
 fun getPlayerName(){
-    // Get username
+    // Get user 1 name
 
     print(" Enter player 1 name here : ")
     val name1 = readln()
+
+    // Get user 1 symbol
         println("1.♔")
         println("2.♕")
         println("3.⚐")
@@ -66,9 +68,11 @@ fun getPlayerName(){
     println("Player 1: $name1 $symbol1 ")
     player1Symbol = symbol1
 
+    // ger user 2 name
     print(" Enter player 2 name here : ")
     val name2 = readln()
 
+    // Get user 2 symbol
     println("1.♚")
     println("2.♛")
     println("3.⚑")
@@ -92,13 +96,13 @@ fun getPlayerName(){
     println("Player 2: $name2 $symbol2")
     player2Symbol = symbol2
 }
-
+// Create the  board
 fun createBoard() {
     repeat(12) {
            boards.add("SPACE ")
    }
 }
-
+// Show the board
 fun showBoard(){
     for (i in 1..boards.size) {
         print("    $i    ")
@@ -130,7 +134,7 @@ fun getUser1Movement() {
 
     }
         var movementAdded = player1Symbol
-        
+
     }
 
 
