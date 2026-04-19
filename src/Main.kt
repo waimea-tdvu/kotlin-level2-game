@@ -11,9 +11,10 @@
  * =====================================================================
  */
 
-
+// public variation
 val boards= mutableListOf<String>()
-
+var player1Symbol = ""
+var player2Symbol = ""
 fun main() {
         println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓".cyan())
         print("┃".cyan())
@@ -37,95 +38,18 @@ fun main() {
 
             showBoard()
             getUser2Movement()
+
+//            explodeScore()
+//            scoreToWin()
+//            break
         }
 
     }
-    var player1Symbol = ""
-    var player2Symbol = ""
-// Symbol P1 ♔♕⚐♡♢♤♧
-// Symbol P2 ♚♛⚑♥♦♠♣
-fun getPlayer1Name() {
-    // Get user 1 name
-
-    print(" Enter player 1 name here : ")
-    val name1 = readln()
-    var choice1: Int?
-    val symbol1: String
-
-    while (true) {
-        // Get user 1 symbol
-        println("1.♔")
-        println("2.♕")
-        println("3.⚐")
-        println("4.♡")
-        println("5.♢")
-        println("6.♤")
-        println("7.♧")
-        println("Choose player 1 symbol to play: ")
-        choice1 = readlnOrNull()?.toIntOrNull()
-        if (choice1 !in 1..7) {
-            println("PLEASE CHOOSE NUMBER FROM 1 TO 7!!")
-            continue
-        }
-
-        symbol1 = when (choice1) {
-            1 -> "♔"
-            2 -> "♕"
-            3 -> "⚐"
-            4 -> "♡"
-            5 -> "♢"
-            6 -> "♤"
-            7 -> "♧"
-            else -> ""
-        }
-        break
-    }
-        println("Player 1: $name1 $symbol1 ")
-        player1Symbol = symbol1
-    }
-
-fun getPlayer2Name() {
-    // get user 2 name
-    print(" Enter player 2 name here : ")
-    val name2 = readln()
-    var choice2: Int?
-    val symbol2: String
-    // Get user 2 symbol
-    while (true) {
-    println("1.♚")
-    println("2.♛")
-    println("3.⚑")
-    println("4.♥")
-    println("5.♦")
-    println("6.♠")
-    println("7.♣")
-    println("Choose player 2 symbol to play: ")
-    choice2 = readlnOrNull()?.toIntOrNull()
-    if (choice2 !in 1..7) {
-        println("PLEASE CHOOSE NUMBER FROM 1 TO 7!!")
-        continue
-    }
-    symbol2 = when (choice2) {
-        1 -> "♚"
-        2 -> "♛"
-        3 -> "⚑"
-        4 -> "♥"
-        5 -> "♦"
-        6 -> "♠"
-        7 -> "♣"
-        else -> ""
-    }
-    break
-}
-            println("Player 2: $name2 $symbol2")
-            player2Symbol = symbol2
-        }
-
 // Create the  board
 fun createBoard() {
     repeat(12) {
-           boards.add("")
-   }
+        boards.add(" ")
+    }
 }
 // Show the board
 fun showBoard(){
@@ -149,6 +73,79 @@ fun showBoard(){
 
     println("┗━━━━━━━━".green() + "┻━━━━━━━━".repeat(boards.size - 1).green() + "┛".green())
 }
+// Symbol P1 ♔♕⚐♡♢♤♧
+// Symbol P2 ♚♛⚑♥♦♠♣
+fun getPlayer1Name() {
+    // Get user 1 name
+
+    print(" Enter player 1 name here : ")
+    val name1 = readln()
+    var choice1: Int?
+    val symbol1: String
+
+    while (true) {
+        // Get user 1 symbol
+        println("1.○")
+        println("2.◎")
+        println("3.◇")
+        println("4.⬠")
+        println("Choose player 1 symbol to play: ")
+        choice1 = readlnOrNull()?.toIntOrNull()
+        if (choice1 !in 1..7) {
+            println("PLEASE CHOOSE NUMBER FROM 1 TO 7!!")
+            continue
+        }
+
+        // ♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        // ●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●
+        //● ○ ◎ ◉
+        // ◆ ◇ ⬟ ⬠
+        symbol1 = when (choice1) {
+//            1 -> "♡"
+            1 -> "○"
+            2 -> "◎"
+            3 -> "◇"
+            4 -> "⬠"
+            else -> ""
+        }
+        break
+    }
+        println("Player 1: $name1 $symbol1 ")
+        player1Symbol = symbol1
+    }
+
+fun getPlayer2Name() {
+    // get user 2 name
+    print(" Enter player 2 name here : ")
+    val name2 = readln()
+    var choice2: Int?
+    val symbol2: String
+    // Get user 2 symbol
+    while (true) {
+    println("1.●")
+    println("2.◉")
+    println("3.◆")
+    println("4.⬟")
+    println("Choose player 2 symbol to play: ")
+    choice2 = readlnOrNull()?.toIntOrNull()
+    if (choice2 !in 1..7) {
+        println("PLEASE CHOOSE NUMBER FROM 1 TO 7!!")
+        continue
+    }
+    symbol2 = when (choice2) {
+        1 -> "●"
+        2 -> "◉"
+        3 -> "◆"
+        4 -> "⬟"
+        else -> ""
+    }
+    break
+}
+            println("Player 2: $name2 $symbol2")
+            player2Symbol = symbol2
+        }
+
 
 fun getUser1Movement() {
     while (true) {
@@ -162,7 +159,7 @@ fun getUser1Movement() {
         val index = position!! - 1
 
 
-        if (boards[index] == "") {
+        if (boards[index] == " ") {
             boards[index] = player1Symbol
             break
         } else {
@@ -182,7 +179,7 @@ fun getUser2Movement() {
         val index = position!! - 1
 
 
-        if (boards[index] == "") {
+        if (boards[index] == " ") {
             boards[index] = player2Symbol
             break
         } else {
@@ -190,9 +187,12 @@ fun getUser2Movement() {
         }
     }
 }
-fun explodeChain(){
+fun explodeScore(){
+    var countersAdjacents = 0
 
+    boards.removeAt(countersAdjacents)
 }
+//fun scoreToWin
 
 
 
