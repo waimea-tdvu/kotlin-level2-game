@@ -35,11 +35,12 @@ fun main() {
         while (true) {
             showBoard()
             getUser1Movement()
+            checkExplosion1()
 
             showBoard()
             getUser2Movement()
+            checkExplosion2()
 
-//            explodeScore()
 //            scoreToWin()
 //            break
         }
@@ -88,25 +89,19 @@ fun getPlayer1Name() {
         println("1.○")
         println("2.◎")
         println("3.◇")
-        println("4.⬠")
+        println("4.△")
         println("Choose player 1 symbol to play: ")
         choice1 = readlnOrNull()?.toIntOrNull()
-        if (choice1 !in 1..7) {
-            println("PLEASE CHOOSE NUMBER FROM 1 TO 7!!")
+        if (choice1 !in 1..4) {
+            println("PLEASE CHOOSE NUMBER FROM 1 TO 4!!")
             continue
         }
-
-        // ♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡
-        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-        // ●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●
-        //● ○ ◎ ◉
-        // ◆ ◇ ⬟ ⬠
         symbol1 = when (choice1) {
 //            1 -> "♡"
             1 -> "○"
             2 -> "◎"
             3 -> "◇"
-            4 -> "⬠"
+            4 -> "△"
             else -> ""
         }
         break
@@ -126,18 +121,18 @@ fun getPlayer2Name() {
     println("1.●")
     println("2.◉")
     println("3.◆")
-    println("4.⬟")
+    println("4.▲")
     println("Choose player 2 symbol to play: ")
     choice2 = readlnOrNull()?.toIntOrNull()
-    if (choice2 !in 1..7) {
-        println("PLEASE CHOOSE NUMBER FROM 1 TO 7!!")
+    if (choice2 !in 1..4) {
+        println("PLEASE CHOOSE NUMBER FROM 1 TO 4!!")
         continue
     }
     symbol2 = when (choice2) {
         1 -> "●"
         2 -> "◉"
         3 -> "◆"
-        4 -> "⬟"
+        4 -> "▲"
         else -> ""
     }
     break
@@ -167,6 +162,7 @@ fun getUser1Movement() {
         }
     }
 }
+var placement = 0
 fun getUser2Movement() {
     while (true) {
         var position: Int?
@@ -181,17 +177,50 @@ fun getUser2Movement() {
 
         if (boards[index] == " ") {
             boards[index] = player2Symbol
+            placement=position
             break
         } else {
             println("THIS SPACE HAS BEEN USED!!!")
         }
     }
-}
-fun explodeScore(){
-    var countersAdjacents = 0
 
-    boards.removeAt(countersAdjacents)
 }
+fun checkExplosion1(){
+    var totalCounter = 0
+    var index = 6
+    while (index < 12 && boards[index] == player1Symbol ) {
+        totalCounter++
+        index++
+        if (totalCounter >= 3) break
+    }
+
+    while (index >= 0 && boards[index] == player1Symbol) {
+        totalCounter++
+        index--
+        if (totalCounter >= 3) break
+    }
+}
+fun checkExplosion2(){
+    var totalCounter2 = 0
+    var index = 6
+    while (index < 12 && boards[index] == player2Symbol ) {
+        totalCounter2++
+        index++
+        if (totalCounter2 >= 3) break
+    }
+
+    while (index >= 0 && boards[index] == player2Symbol) {
+        totalCounter2++
+        index--
+        if (totalCounter2 >= 3) break
+    }
+    println("Total counter: $totalCounter2")
+    println("index: $index")
+}
+
+
+
+
 //fun scoreToWin
 
 
