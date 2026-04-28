@@ -11,49 +11,55 @@
  * =====================================================================
  */
 
-// public variation
-val boards= mutableListOf<String>()
+// global variable and value
+val boards = mutableListOf<String>()
 var player1Symbol = ""
 var player2Symbol = ""
+val EMPTY = " "
+
 fun main() {
-        println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓".cyan())
-        print("┃".cyan())
+    // Create Introduction to the game--------------------------------------------------------------
+    println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓".cyan())
+    print("┃".cyan())
 
-        print(" Welcome to Chain Reaction Game")
-        println(" ┃".cyan())
-        print("┃".cyan())
-        print(" Produce by Trinh Vu ")
-        println("           ┃".cyan())
+    print(" Welcome to Chain Reaction Game")
+    println(" ┃".cyan())
+    print("┃".cyan())
+    print(" Produce by Trinh Vu ")
+    println("           ┃".cyan())
 
-        println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛".cyan())
-        println()
+    println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛".cyan())
+    println()
 
-        getPlayer1Name()
-        getPlayer2Name()
-        createBoard()
+    getPlayer1Information()
+    getPlayer2Information()
+    createBoard()
 
-        while (true) {
-            showBoard()
-            getUser1Movement()
-            checkExplosion1()
+    while (true) {
+        showBoard()
+        getUser1Movement()
+        checkDefuseRule()
+        checkExplosion1()
 
-            showBoard()
-            getUser2Movement()
-            checkExplosion2()
+        showBoard()
+        getUser2Movement()
+        checkDefuseRule()
+        checkExplosion2()
 
 //            scoreToWin()
 //            break
-        }
-
-    }
-// Create the  board
-fun createBoard() {
-    repeat(12) {
-        boards.add(" ")
     }
 }
+
+// Create the  board----------------------------------------------------------------------------------------
+fun createBoard() {
+    repeat(12) {
+        boards.add(EMPTY)
+    }
+}
+
 // Show the board
-fun showBoard(){
+fun showBoard() {
     for (i in 1..boards.size) {
         print("    $i    ")
     }
@@ -74,11 +80,9 @@ fun showBoard(){
 
     println("┗━━━━━━━━".green() + "┻━━━━━━━━".repeat(boards.size - 1).green() + "┛".green())
 }
-// Symbol P1 ♔♕⚐♡♢♤♧
-// Symbol P2 ♚♛⚑♥♦♠♣
-fun getPlayer1Name() {
-    // Get user 1 name
 
+fun getPlayer1Information() {
+    // Get user 1 name
     print(" Enter player 1 name here : ")
     val name1 = readln()
     var choice1: Int?
@@ -106,11 +110,11 @@ fun getPlayer1Name() {
         }
         break
     }
-        println("Player 1: $name1 $symbol1 ")
-        player1Symbol = symbol1
-    }
+    println("Player 1: $name1 $symbol1 ")
+    player1Symbol = symbol1
+}
 
-fun getPlayer2Name() {
+fun getPlayer2Information() {
     // get user 2 name
     print(" Enter player 2 name here : ")
     val name2 = readln()
@@ -118,30 +122,33 @@ fun getPlayer2Name() {
     val symbol2: String
     // Get user 2 symbol
     while (true) {
-    println("1.●")
-    println("2.◉")
-    println("3.◆")
-    println("4.▲")
-    println("Choose player 2 symbol to play: ")
-    choice2 = readlnOrNull()?.toIntOrNull()
-    if (choice2 !in 1..4) {
-        println("PLEASE CHOOSE NUMBER FROM 1 TO 4!!")
-        continue
-    }
-    symbol2 = when (choice2) {
-        1 -> "●"
-        2 -> "◉"
-        3 -> "◆"
-        4 -> "▲"
-        else -> ""
-    }
-    break
-}
-            println("Player 2: $name2 $symbol2")
-            player2Symbol = symbol2
+        println("1.●")
+        println("2.◉")
+        println("3.◆")
+        println("4.▲")
+        println("Choose player 2 symbol to play: ")
+        choice2 = readlnOrNull()?.toIntOrNull()
+        if (choice2 !in 1..4) {
+            println("PLEASE CHOOSE NUMBER FROM 1 TO 4!!")
+            continue
         }
+        symbol2 = when (choice2) {
+            1 -> "●"
+            2 -> "◉"
+            3 -> "◆"
+            4 -> "▲"
+            else -> ""
+        }
+        break
+    }
+    println("Player 2: $name2 $symbol2")
+    player2Symbol = symbol2
+}
 
+// Make global variable for the position of player
+var placement1 = 0
 
+// Get player 1 movement
 fun getUser1Movement() {
     while (true) {
         var position: Int?
@@ -153,16 +160,20 @@ fun getUser1Movement() {
 
         val index = position!! - 1
 
-
-        if (boards[index] == " ") {
+        if (boards[index] == EMPTY) {
             boards[index] = player1Symbol
+            placement1 = position
             break
         } else {
             println("THIS SPACE HAS BEEN USED!!!")
         }
     }
 }
-var placement = 0
+
+// Make global variable for the position of player
+var placement2 = 0
+
+// Get player 2 movement
 fun getUser2Movement() {
     while (true) {
         var position: Int?
@@ -174,52 +185,61 @@ fun getUser2Movement() {
 
         val index = position!! - 1
 
-
-        if (boards[index] == " ") {
+        if (boards[index] == EMPTY) {
             boards[index] = player2Symbol
-            placement=position
+            placement2 = position
             break
         } else {
             println("THIS SPACE HAS BEEN USED!!!")
         }
     }
-
 }
-fun checkExplosion1(){
-    var totalCounter = 0
-    var index = 6
-    while (index < 12 && boards[index] == player1Symbol ) {
+
+fun checkExplosion1() {
+    var totalCounter = 1  // We have just placed one counter
+    val index = placement1 - 1
+    var right = index + 1
+    while (right < boards.size && boards[right] == player1Symbol) {
         totalCounter++
-        index++
-        if (totalCounter >= 3) break
+        right++
     }
-
-    while (index >= 0 && boards[index] == player1Symbol) {
+    var left = index - 1
+    while (left >= 0 && boards[left] == player1Symbol) {
         totalCounter++
-        index--
-        if (totalCounter >= 3) break
+        left--
+    }
+    if (totalCounter >= 3) {
+        for (counter1 in right - 1 downTo left + 1) {
+            boards[counter1] = EMPTY
+        }
+        println("BOOM!!!")
     }
 }
-fun checkExplosion2(){
-    var totalCounter2 = 0
-    var index = 6
-    while (index < 12 && boards[index] == player2Symbol ) {
-        totalCounter2++
-        index++
-        if (totalCounter2 >= 3) break
-    }
 
-    while (index >= 0 && boards[index] == player2Symbol) {
+fun checkExplosion2() {
+    var totalCounter2 = 1
+    val index = placement2 - 1
+    var right = index + 1
+    while (right < boards.size && boards[right] == player2Symbol) {
         totalCounter2++
-        index--
-        if (totalCounter2 >= 3) break
+        right++
     }
-    println("Total counter: $totalCounter2")
-    println("index: $index")
+    var left = index - 1
+    while (left >= 0 && boards[left] == player2Symbol) {
+        totalCounter2++
+        left--
+    }
+    if (totalCounter2 >= 3) {
+        for (counter2 in right - 1 downTo left + 1) {
+            boards[counter2] = EMPTY
+        }
+        println("BOOM!!!")
+    }
 }
 
-
-
+fun checkDefuseRule() {
+    
+}
 
 //fun scoreToWin
 
