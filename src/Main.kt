@@ -38,12 +38,12 @@ fun main() {
     while (true) {
         showBoard()
         getUser1Movement()
-        checkDefuseRule()
+        checkDefuseRule1()
         checkExplosion1()
 
         showBoard()
         getUser2Movement()
-        checkDefuseRule()
+        checkDefuseRule2()
         checkExplosion2()
 
 //            scoreToWin()
@@ -147,6 +147,7 @@ fun getPlayer2Information() {
 
 // Make global variable for the position of player
 var placement1 = 0
+var placement2 = 0
 
 // Get player 1 movement
 fun getUser1Movement() {
@@ -170,9 +171,6 @@ fun getUser1Movement() {
     }
 }
 
-// Make global variable for the position of player
-var placement2 = 0
-
 // Get player 2 movement
 fun getUser2Movement() {
     while (true) {
@@ -195,6 +193,7 @@ fun getUser2Movement() {
     }
 }
 
+// Check and explode the counter----------------------------------------------------------------------
 fun checkExplosion1() {
     var totalCounter = 1  // We have just placed one counter
     val index = placement1 - 1
@@ -237,8 +236,40 @@ fun checkExplosion2() {
     }
 }
 
-fun checkDefuseRule() {
-    
+fun checkDefuseRule1() {
+    val index = placement2 - 1
+    var right = index + 1
+    while (right < boards.size && boards[right] == player2Symbol) {
+        right++
+    }
+    var left = index - 1
+    while (left >= 0 && boards[left] == player2Symbol) {
+        left--
+    }
+    if (boards[right] == player1Symbol && boards[left] == player1Symbol) {
+        for (counter2 in right - 1 downTo left + 1) {
+            boards[counter2] = EMPTY
+        }
+        println("YOUR BOMB HAS BEEN DEFUSED!!!")
+    }
+}
+
+fun checkDefuseRule2() {
+    val index = placement1 - 1
+    var right = index + 1
+    while (right < boards.size && boards[right] == player1Symbol) {
+        right++
+    }
+    var left = index - 1
+    while (left >= 0 && boards[left] == player1Symbol) {
+        left--
+    }
+    if (right < boards.size && left >= 0 && boards[right] == player2Symbol && boards[left] == player2Symbol) {
+        for (counter1 in right - 1 downTo left + 1) {
+            boards[counter1] = EMPTY
+        }
+        println("YOUR BOMB HAS BEEN DEFUSED!!!")
+    }
 }
 
 //fun scoreToWin
