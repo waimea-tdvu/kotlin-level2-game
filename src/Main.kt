@@ -13,10 +13,13 @@
 
 // global variable and value
 val boards = mutableListOf<String>()
+var player1Name = ""
+var player2Name = ""
 var player1Symbol = ""
 var player2Symbol = ""
 val EMPTY = " "
-
+var p1Points = 0
+var p2Points = 0
 fun main() {
     // Create Introduction to the game--------------------------------------------------------------
     println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓".cyan())
@@ -40,14 +43,21 @@ fun main() {
         getUser1Movement()
         checkDefuseRule1()
         checkExplosion1()
+        println("$player1Name HAVE $p1Points POINTS.".red())
+        if (checkWinner()) {
+            break
+        }
+
 
         showBoard()
         getUser2Movement()
         checkDefuseRule2()
         checkExplosion2()
+        println("$player1Name HAS $p2Points POINTS.".red())
+        if (checkWinner()) {
+            break
+        }
 
-//            scoreToWin()
-//            break
     }
 }
 
@@ -58,10 +68,15 @@ fun createBoard() {
     }
 }
 
-// Show the board
+// Show the board-----------------------------------------------------
 fun showBoard() {
+    // Show number index above the board--------------------------------------------------
     for (i in 1..boards.size) {
-        print("    $i    ")
+        if (i < 11) {
+            print("    $i    ")
+        } else {
+            print("   $i    ")
+        }
     }
     println()
     // Top border
@@ -81,10 +96,12 @@ fun showBoard() {
     println("┗━━━━━━━━".green() + "┻━━━━━━━━".repeat(boards.size - 1).green() + "┛".green())
 }
 
+// Get name and symbol for P1 to play-----------------------------------------------
 fun getPlayer1Information() {
     // Get user 1 name
     print(" Enter player 1 name here : ")
     val name1 = readln()
+    player1Name = name1
     var choice1: Int?
     val symbol1: String
 
@@ -114,10 +131,12 @@ fun getPlayer1Information() {
     player1Symbol = symbol1
 }
 
+// Get name and symbol for P2 to play-----------------------------------------------
 fun getPlayer2Information() {
     // get user 2 name
     print(" Enter player 2 name here : ")
     val name2 = readln()
+    player2Name = name2
     var choice2: Int?
     val symbol2: String
     // Get user 2 symbol
@@ -160,7 +179,10 @@ fun getUser1Movement() {
         }
 
         val index = position!! - 1
-
+        if (index < boards.size - 1 && index >= 0 && boards[index + 1] == player2Symbol && boards[index - 1] == player2Symbol) {
+            println("You can't place your counter here!!!")
+            continue
+        }
         if (boards[index] == EMPTY) {
             boards[index] = player1Symbol
             placement1 = position
@@ -182,7 +204,10 @@ fun getUser2Movement() {
         }
 
         val index = position!! - 1
-
+        if (index < boards.size - 1 && index >= 0 && boards[index + 1] == player1Symbol && boards[index - 1] == player1Symbol) {
+            println("You can't place your counter here!!!")
+            continue
+        }
         if (boards[index] == EMPTY) {
             boards[index] = player2Symbol
             placement2 = position
@@ -190,6 +215,7 @@ fun getUser2Movement() {
         } else {
             println("THIS SPACE HAS BEEN USED!!!")
         }
+
     }
 }
 
@@ -207,7 +233,9 @@ fun checkExplosion1() {
         totalCounter++
         left--
     }
+
     if (totalCounter >= 3) {
+        p1Points += totalCounter
         for (counter1 in right - 1 downTo left + 1) {
             boards[counter1] = EMPTY
         }
@@ -228,7 +256,9 @@ fun checkExplosion2() {
         totalCounter2++
         left--
     }
+
     if (totalCounter2 >= 3) {
+        p2Points += totalCounter2
         for (counter2 in right - 1 downTo left + 1) {
             boards[counter2] = EMPTY
         }
@@ -236,43 +266,38 @@ fun checkExplosion2() {
     }
 }
 
+// Defuse rule :if any opponent bomb now has one of your bombs on each side, it is ‘defused’ and removed from the board (note: two bombs can be defused in one go)----------------------------------------
 fun checkDefuseRule1() {
     val index = placement2 - 1
-    var right = index + 1
-    while (right < boards.size && boards[right] == player2Symbol) {
-        right++
-    }
-    var left = index - 1
-    while (left >= 0 && boards[left] == player2Symbol) {
-        left--
-    }
-    if (boards[right] == player1Symbol && boards[left] == player1Symbol) {
-        for (counter2 in right - 1 downTo left + 1) {
-            boards[counter2] = EMPTY
-        }
+    if (index < boards.size - 1 && index >= 0 && boards[index + 1] == player1Symbol && boards[index - 1] == player1Symbol) {
+        boards[index] = EMPTY
         println("YOUR BOMB HAS BEEN DEFUSED!!!")
     }
 }
 
 fun checkDefuseRule2() {
     val index = placement1 - 1
-    var right = index + 1
-    while (right < boards.size && boards[right] == player1Symbol) {
-        right++
-    }
-    var left = index - 1
-    while (left >= 0 && boards[left] == player1Symbol) {
-        left--
-    }
-    if (right < boards.size && left >= 0 && boards[right] == player2Symbol && boards[left] == player2Symbol) {
-        for (counter1 in right - 1 downTo left + 1) {
-            boards[counter1] = EMPTY
-        }
+    if (index < boards.size - 1 && index >= 0 && boards[index + 1] == player2Symbol && boards[index - 1] == player2Symbol) {
+        boards[index] = EMPTY
         println("YOUR BOMB HAS BEEN DEFUSED!!!")
     }
 }
 
-//fun scoreToWin
+fun checkWinner(): Boolean {
+    if (p1Points >= 10) {
+        println("WINNER WINNER CHICKEN DINNER!!!")
+        println("CONGRATULATION $player1Name!!!")
+        return true
+    }
+    if (p2Points >= 10) {
+        println("WINNER WINNER CHICKEN DINNER!!!")
+        println("CONGRATULATION $player2Name!!!")
+        return true
+    }
+    return false
+}
+
+
 
 
 
