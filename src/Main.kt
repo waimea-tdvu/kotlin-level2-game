@@ -55,7 +55,7 @@ fun main() {
         getUser2Movement()
         checkDefuseRule2()
         checkExplosion2()
-        println("$player2Name SCORE $p2Points.".red())
+        println("$player2Name SCORE: $p2Points.".red())
         if (checkWinner()) {
             break
         }
@@ -179,9 +179,8 @@ fun getUser1Movement() {
             position = readlnOrNull()?.toIntOrNull()
             if (position != null && position in 1..12) break
         }
-
         val index = position!! - 1
-        if (index < boards.size - 1 && index >= 0 && boards[index + 1] == player2Symbol && boards[index - 1] == player2Symbol) {
+        if (index < boards.size - 1 && boards[index + 1] == player2Symbol && index >= 0 && boards[index - 1] == player2Symbol) {
             println("You can't place your counter here!!!")
             continue
         }
@@ -204,9 +203,8 @@ fun getUser2Movement() {
             position = readlnOrNull()?.toIntOrNull()
             if (position != null && position in 1..12) break
         }
-
         val index = position!! - 1
-        if (index < boards.size - 1 && index >= 0 && boards[index + 1] == player1Symbol && boards[index - 1] == player1Symbol) {
+        if (index < boards.size - 1 && boards[index + 1] == player1Symbol && index >= 0 && boards[index - 1] == player1Symbol) {
             println("You can't place your counter here!!!")
             continue
         }
@@ -271,7 +269,7 @@ fun checkExplosion2() {
 // Defuse rule :if any opponent bomb now has one of your bombs on each side, it is ‘defused’ and removed from the board (note: two bombs can be defused in one go)----------------------------------------
 fun checkDefuseRule1() {
     val index = placement2 - 1
-    if (index < boards.size - 1 && index >= 0 && boards[index + 1] == player1Symbol && boards[index - 1] == player1Symbol) {
+    if (index < boards.size - 1 && boards[index + 1] == player1Symbol && index > 0 && boards[index - 1] == player1Symbol) {
         boards[index] = EMPTY
         println("YOUR BOMB HAS BEEN DEFUSED!!!")
     }
@@ -279,7 +277,7 @@ fun checkDefuseRule1() {
 
 fun checkDefuseRule2() {
     val index = placement1 - 1
-    if (index < boards.size - 1 && index >= 0 && boards[index + 1] == player2Symbol && boards[index - 1] == player2Symbol) {
+    if (index < boards.size - 1 && boards[index + 1] == player2Symbol && index > 0 && boards[index - 1] == player2Symbol) {
         boards[index] = EMPTY
         println("YOUR BOMB HAS BEEN DEFUSED!!!")
     }
