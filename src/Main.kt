@@ -17,7 +17,9 @@ var player1Name = ""
 var player2Name = ""
 var player1Symbol = ""
 var player2Symbol = ""
-val EMPTY = " "
+var EMPTY = " "
+var placement1 = 0
+var placement2 = 0
 var p1Points = 0
 var p2Points = 0
 fun main() {
@@ -43,7 +45,7 @@ fun main() {
         getUser1Movement()
         checkDefuseRule1()
         checkExplosion1()
-        println("$player1Name HAVE $p1Points POINTS.".red())
+        println("$player1Name SCORE: $p1Points.".red())
         if (checkWinner()) {
             break
         }
@@ -53,11 +55,10 @@ fun main() {
         getUser2Movement()
         checkDefuseRule2()
         checkExplosion2()
-        println("$player1Name HAS $p2Points POINTS.".red())
+        println("$player2Name SCORE $p2Points.".red())
         if (checkWinner()) {
             break
         }
-
     }
 }
 
@@ -99,9 +100,12 @@ fun showBoard() {
 // Get name and symbol for P1 to play-----------------------------------------------
 fun getPlayer1Information() {
     // Get user 1 name
-    print(" Enter player 1 name here : ")
-    val name1 = readln()
-    player1Name = name1
+    while (true) {
+        print(" Enter player 1 name here : ")
+        val name1 = readln()
+        player1Name = name1
+        if (name1.isNotBlank()) break
+    }
     var choice1: Int?
     val symbol1: String
 
@@ -118,7 +122,6 @@ fun getPlayer1Information() {
             continue
         }
         symbol1 = when (choice1) {
-//            1 -> "♡"
             1 -> "○"
             2 -> "◎"
             3 -> "◇"
@@ -127,16 +130,19 @@ fun getPlayer1Information() {
         }
         break
     }
-    println("Player 1: $name1 $symbol1 ")
+    println("Player 1: $player1Name $symbol1 ")
     player1Symbol = symbol1
 }
 
 // Get name and symbol for P2 to play-----------------------------------------------
 fun getPlayer2Information() {
     // get user 2 name
-    print(" Enter player 2 name here : ")
-    val name2 = readln()
-    player2Name = name2
+    while (true) {
+        print(" Enter player 2 name here : ")
+        val name2 = readln()
+        player2Name = name2
+        if (name2.isNotBlank()) break
+    }
     var choice2: Int?
     val symbol2: String
     // Get user 2 symbol
@@ -160,13 +166,9 @@ fun getPlayer2Information() {
         }
         break
     }
-    println("Player 2: $name2 $symbol2")
+    println("Player 2: $player2Name $symbol2")
     player2Symbol = symbol2
 }
-
-// Make global variable for the position of player
-var placement1 = 0
-var placement2 = 0
 
 // Get player 1 movement
 fun getUser1Movement() {
