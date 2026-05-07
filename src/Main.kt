@@ -4,10 +4,10 @@
  * ---------------------------------------------------------------------
  * Project Name:   CHAIN REACTION
  * Project Author: TRINH VU
- * GitHub Repo:    GITHUB REPO URL HERE
+ * GitHub Repo: https://github.com/waimea-tdvu/kotlin-level2-game
  * ---------------------------------------------------------------------
  * Notes:
- * PROJECT NOTES HERE
+ * Chain Reaction Game
  * =====================================================================
  */
 
@@ -36,6 +36,22 @@ fun main() {
     println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛".cyan())
     println()
 
+    println("Chain Reaction 💣")
+    println(" The Game Rule:".green())
+    println(" - A row of 12 squares, numbered 1 to 12 from left to right".green())
+    println(" - The board starts empty".green())
+    println(" - Both players have a supply of 'bombs' (counters) in their own colour".green())
+    println(" - Decide who goes first".green())
+    println(" - Players take turns - You may not skip your turn".green())
+    println(" - On your turn you must place one of your bombs on an empty square".green())
+    println(" - You cannot place your bomb directly between two opponent bombs since it would immediately be 'defused' (see the defuse rule below)".green())
+    println(" - After placing, the following rules apply (in order)".green())
+    println(" - Defuse rule:  if any opponent bomb now has one of your bombs on each side, it is 'defused' and removed from the board (note: two bombs can be defused in one go)".red())
+    println(" - Chain reaction rule: if your bomb creates an unbroken chain of 3 or more of your own bombs, the entire chain 'explodes' - all bombs in the chain are removed and you score points equal to the length of the chain".red())
+    println("Win Condition".yellow())
+    println(" - The first player to reach 10 points wins")
+    println()
+
     getPlayer1Information()
     getPlayer2Information()
     createBoard()
@@ -49,8 +65,6 @@ fun main() {
         if (checkWinner()) {
             break
         }
-
-
         showBoard()
         getUser2Movement()
         checkDefuseRule2()
@@ -82,18 +96,13 @@ fun showBoard() {
     println()
     // Top border
     println("┏━━━━━━━━".green() + "┳━━━━━━━━".repeat(boards.size - 1).green() + "┓".green())
-
     // Board  contents
-
     for (board in boards) {
         print("┃".green())
         print(" ${board.padEnd(6)} ")
-
     }
     println("┃".green())
-
     // Bottom border
-
     println("┗━━━━━━━━".green() + "┻━━━━━━━━".repeat(boards.size - 1).green() + "┛".green())
 }
 
@@ -180,7 +189,7 @@ fun getUser1Movement() {
             if (position != null && position in 1..12) break
         }
         val index = position!! - 1
-        if (index < boards.size - 1 && boards[index + 1] == player2Symbol && index >= 0 && boards[index - 1] == player2Symbol) {
+        if (index < boards.size - 1 && boards[index + 1] == player2Symbol && index > 0 && boards[index - 1] == player2Symbol) {
             println("You can't place your counter here!!!")
             continue
         }
@@ -204,7 +213,7 @@ fun getUser2Movement() {
             if (position != null && position in 1..12) break
         }
         val index = position!! - 1
-        if (index < boards.size - 1 && boards[index + 1] == player1Symbol && index >= 0 && boards[index - 1] == player1Symbol) {
+        if (index < boards.size - 1 && boards[index + 1] == player1Symbol && index > 0 && boards[index - 1] == player1Symbol) {
             println("You can't place your counter here!!!")
             continue
         }
