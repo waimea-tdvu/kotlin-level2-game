@@ -91,6 +91,22 @@ All the input should be rejected
 
 ---
 
+## Gameplay: Defuse rule
+
+I will test that is defused rule working
+
+### Test Data To Use
+
+I will attempt to put the counters on each side of opponent counter
+
+I will do that for player 1 and player 2
+
+### Expected Test Result
+
+The counter between 2 opponent counters should be removed
+
+---
+
 ## Gameplay: Explosion
 
 I will test that is the counter will remove if it has 3 or more counter adjacent.
